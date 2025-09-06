@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b5ub8u7skgn7k"]
+[gd_scene load_steps=42 format=3 uid="uid://b5ub8u7skgn7k"]
 
 [ext_resource type="Script" uid="uid://bdu6g88fsw0gt" path="res://Scripts/player.gd" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://cky5bqcmqxedn" path="res://assests/sprites/knight.png" id="1_xhfnw"]
@@ -50,6 +50,10 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_q6r6c"]
 atlas = ExtResource("1_xhfnw")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
+atlas = ExtResource("1_xhfnw")
+region = Rect2(64, 160, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3tkgg"]
 atlas = ExtResource("1_xhfnw")
@@ -202,6 +206,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_kyqiw")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_3tkgg")
 }, {
 "duration": 1.0,
@@ -288,12 +300,14 @@ radius = 6.0
 height = 18.0
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 2
 script = ExtResource("1_kpjcp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -12)
 sprite_frames = SubResource("SpriteFrames_kdubu")
-animation = &"Death"
+animation = &"Jump"
 autoplay = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
