@@ -6,6 +6,7 @@ var score:int = 0
 
 
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -13,4 +14,4 @@ func _process(delta: float) -> void:
 	
 func add_point():
 	score += 1
-	coinslbl.text = "Coins: " + str(score)
+	coinslbl.text = "Score: " + str(score)
