@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://b0utn816xkjt2"]
+[gd_scene load_steps=11 format=4 uid="uid://b0utn816xkjt2"]
 
 [ext_resource type="Texture2D" uid="uid://ds8bu0lkx2qr" path="res://assests/sprites/world_tileset.png" id="1_5eaas"]
+[ext_resource type="Script" uid="uid://p1msa1pjsqq5" path="res://Scripts/level_4.gd" id="1_dvrgg"]
 [ext_resource type="PackedScene" uid="uid://b5ub8u7skgn7k" path="res://Scenes/Player.tscn" id="2_kdkq3"]
 [ext_resource type="FontFile" uid="uid://dbpnahwfrrrf7" path="res://assests/fonts/PixelOperator8.ttf" id="3_f6i20"]
 [ext_resource type="PackedScene" uid="uid://co4rf4t1ra8aw" path="res://Scenes/blue_platform.tscn" id="3_kdkq3"]
-[ext_resource type="Texture2D" uid="uid://des7ss7mhs1x4" path="res://assests/level_end/PACK BOTÃO FINAL.png" id="4_dvrgg"]
+[ext_resource type="PackedScene" uid="uid://bdya2npmsgag" path="res://Scenes/pause_menu.tscn" id="5_wk15n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5eaas"]
 texture = ExtResource("1_5eaas")
@@ -284,6 +285,7 @@ physics_layer_0/collision_mask = 2
 sources/0 = SubResource("TileSetAtlasSource_wi344")
 
 [node name="level_4" type="Node2D"]
+script = ExtResource("1_dvrgg")
 
 [node name="Background" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAFAAAAAAAAAAgAAAD1/wAAAAAAAAgAAAA=")
@@ -318,18 +320,10 @@ theme_override_fonts/font = ExtResource("3_f6i20")
 theme_override_font_sizes/font_size = 8
 text = "Coins:0"
 
-[node name="Pause" type="Button" parent="Player"]
-offset_left = -126.0
-offset_top = -75.0
-offset_right = -103.0
-offset_bottom = -50.0
-
-[node name="Pause" type="Sprite2D" parent="Player/Pause"]
-position = Vector2(10.9547, 10.6728)
-scale = Vector2(0.669925, 0.622713)
-texture = ExtResource("4_dvrgg")
-region_enabled = true
-region_rect = Rect2(40, 16, 36, 45)
+[node name="PauseMenu" parent="Player" instance=ExtResource("5_wk15n")]
+visible = false
 
 [node name="AnimatableBody2D" parent="." instance=ExtResource("3_kdkq3")]
 position = Vector2(160, -8)
+
+[connection signal="resumed" from="Player/PauseMenu" to="." method="_on_pause_menu_resumed"]

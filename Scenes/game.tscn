@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ds8bu0lkx2qr" path="res://assests/sprites/world_tileset.png" id="3_wowpa"]
 [ext_resource type="PackedScene" uid="uid://cr22voaiwwd6l" path="res://Scenes/coin.tscn" id="4_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bf3ujd8x4yqxv" path="res://Scenes/green_enemy.tscn" id="6_i6g32"]
-[ext_resource type="Texture2D" uid="uid://des7ss7mhs1x4" path="res://assests/level_end/PACK BOTÃO FINAL.png" id="6_o5yvi"]
+[ext_resource type="PackedScene" uid="uid://bdya2npmsgag" path="res://Scenes/pause_menu.tscn" id="6_o5yvi"]
 [ext_resource type="FontFile" uid="uid://dbpnahwfrrrf7" path="res://assests/fonts/PixelOperator8.ttf" id="8_h4fw4"]
 [ext_resource type="FontFile" uid="uid://bxu3gbtxb4ed7" path="res://assests/fonts/PixelOperator8-Bold.ttf" id="8_ldgsr"]
 [ext_resource type="Texture2D" uid="uid://c8w11fjbpj2vf" path="res://assests/level_end/Dimensional_Portal.png" id="10_ldgsr"]
@@ -499,18 +499,8 @@ theme_override_fonts/font = ExtResource("8_h4fw4")
 theme_override_font_sizes/font_size = 8
 text = "Coins:0"
 
-[node name="Pause" type="Button" parent="Player"]
-offset_left = -126.0
-offset_top = -75.0
-offset_right = -103.0
-offset_bottom = -50.0
-
-[node name="Pause" type="Sprite2D" parent="Player/Pause"]
-position = Vector2(10.9547, 10.6728)
-scale = Vector2(0.669925, 0.622713)
-texture = ExtResource("6_o5yvi")
-region_enabled = true
-region_rect = Rect2(40, 16, 36, 45)
+[node name="PauseMenu" parent="Player" instance=ExtResource("6_o5yvi")]
+visible = false
 
 [node name="Coins" type="Node" parent="."]
 
@@ -603,5 +593,5 @@ sprite_frames = SubResource("SpriteFrames_ewbju")
 autoplay = "default"
 frame_progress = 0.348124
 
-[connection signal="pressed" from="Player/Pause" to="GameManager" method="_on_pause_pressed"]
+[connection signal="resumed" from="Player/PauseMenu" to="GameManager" method="_on_pause_menu_resumed"]
 [connection signal="body_entered" from="level_end" to="GameManager" method="_on_level_end_body_entered"]

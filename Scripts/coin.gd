@@ -14,8 +14,11 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	game_manager.add_point()
-	print("Player Got a Coin")
-	animation_player.play('pickup')
+	if game_manager:
+		game_manager.add_point()
+		print("Player Got a Coin")
+		animation_player.play('pickup')
+	
+		
 		
 	pass # Replace with function body.
