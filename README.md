@@ -13,8 +13,7 @@
 	<img src="assests/sprites/knight.png" alt="Enemy Hunter" width="128" />
 	<h1 align="center">Enemy Hunter</h1>
 	<p align="center">
-		A 2D platformer game built with Godot Engine.<br />
-		Hunt enemies, collect coins, and survive as long as you can!
+		A 2D platformer made with Godot Engine (GDScript). Play as a knight, defeat enemies, collect coins, and reach the level end portal.
 	</p>
 </div>
 
@@ -43,37 +42,42 @@
 <!-- ABOUT -->
 ## About The Project
 
-Enemy Hunter is a 2D platformer game where you play as a knight battling enemies and collecting coins. The goal is to defeat all enemies, avoid hazards, and reach the end of the level with as many coins and health as possible.
+Enemy Hunter is a small 2D platformer where you control a knight and progress through a level filled with moving platforms, coins, hazards, and patrolling enemies.
 
-### Game Features
-- Play as a knight character with smooth movement and jump mechanics
-- Defeat green enemies by jumping on them twice
-- Collect coins scattered throughout the level
-- Avoid kill zones and damage zones to survive
-- Health system: take damage from enemies and hazards
-- Animated platforms and interactive environment
-- Simple scoring system based on coins collected and enemies defeated
+### Game features (from the project)
+- Player with left/right movement, jump, attack and defend animations (`Scripts/player.gd`)
+- Enemies (green) that patrol platforms and take 2 hits to die (`Scenes/green_enemy.tscn`, `Scripts/green_enemy.gd`)
+- Collectible coins that increase score (`Scenes/coin.tscn`, `Scripts/coin.gd`)
+- Damage zones and kill zones that hurt or instantly kill the player (`Scenes/damage_zone.tscn`, `Scripts/damage_zone.gd`, `Scenes/kill_zone.tscn`, `Scripts/kill_zone.gd`)
+- Level end portal that advances to `level_selector.tscn` (`Scenes/game.tscn` with `level_end` Area2D connected to `GameManager`)
+- A simple `GameManager` that tracks score and pause state (`Scripts/game_manager.gd`)
 
-### Main Scenes & Scripts
-- `Scenes/game.tscn`: Main game scene with player, enemies, coins, platforms, and UI labels
-- `Scripts/player.gd`: Handles player movement, jumping, health, and damage
-- `Scripts/green_enemy.gd`: Controls enemy movement, damage, and death
-- `Scripts/game_manager.gd`: Manages score and coin collection
+### Main scenes & scripts (key files)
+- `Scenes/game.tscn` — main level scene (player, enemies, coins, platforms, UI labels)
+- `Scenes/Player.tscn` — player scene used by the main scene
+- `Scenes/green_enemy.tscn` — enemy scene with patrol raycasts and animations
+- `Scenes/coin.tscn` — coin collectible scene
+- `Scripts/player.gd` — player movement, health, and animation handling
+- `Scripts/green_enemy.gd` — enemy patrol and damage handling
+- `Scripts/game_manager.gd` — score and pause handling
+- `Scripts/coin.gd` — coin pickup and scoring
 
 ### Controls
-- Move Left: `A` or Left Arrow
-- Move Right: `D` or Right Arrow
-- Jump: `Space`
+- Move left/right: A/D or Left/Right arrows
+- Jump: Space
+- Pause: Pause button shown in the HUD
 
 ### Objective
-Jump on enemies twice to defeat them, collect coins, and reach the end of the level. Watch your health and avoid hazards!
+Defeat enemies (jump on them twice), collect coins to increase score, avoid hazards (damage/kill zones), and reach the level end portal to move to the next screen.
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 
 
 ### Built Using
 This project was built using:
-- [Godot Engine](https://godotengine.org/) (GDScript)
+- Godot Engine (GDScript)
+
+Assets are stored in `assests/` (sprites, fonts, sounds).
 
 <p align="right">(<a href="#readme-top">top</a>)</p>
 

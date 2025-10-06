@@ -43,8 +43,6 @@ func _on_jump_damage_body_entered(body: Node2D) -> void:
 	health -= 1
 	check_death()
 	
-	
-
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if(animated_sprite.animation == 'damage'):
 		animated_sprite.play("Idle")

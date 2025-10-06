@@ -1,0 +1,90 @@
+[gd_scene load_steps=5 format=3 uid="uid://yrxxgln2vgle"]
+
+[ext_resource type="Script" uid="uid://dwcgmouue2tt6" path="res://Scenes/level_selector.gd" id="1_22lal"]
+[ext_resource type="Texture2D" uid="uid://c5giggyibad1j" path="res://assests/main_menu/A level selection ba.png" id="2_x3xpc"]
+[ext_resource type="FontFile" uid="uid://cndo53luq4xy1" path="res://assests/fonts/future_edge/Future Edge.otf" id="3_yk0gq"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yk0gq"]
+texture = ExtResource("2_x3xpc")
+
+[node name="level_selector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_22lal")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_yk0gq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -196.0
+offset_right = 324.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="level" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LEVEL 1
+"
+
+[node name="level2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LEVEL 2"
+
+[node name="level3" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LEVEL 3"
+
+[node name="level4" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LEVEL 4"
+
+[node name="level5" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LEVEL 5"
+
+[node name="level6" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "LEVEL 6"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -192.0
+offset_top = 48.0
+offset_right = 154.0
+offset_bottom = 110.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_yk0gq")
+theme_override_font_sizes/font_size = 50
+text = "SELECT LEVEL"
+
+[connection signal="pressed" from="VBoxContainer/level" to="." method="_on_level_pressed"]
+[connection signal="pressed" from="VBoxContainer/level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/level3" to="." method="_on_level_3_pressed"]
+[connection signal="pressed" from="VBoxContainer/level4" to="." method="_on_level_4_pressed"]
