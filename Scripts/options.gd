@@ -1,27 +1,31 @@
-extends Control
+extends CanvasLayer
 
-@onready var audio_scroll: HScrollBar = $VBoxContainer/Audio_Scroll
+@onready var master_volume: HSlider = $TabContainer/Music/MasterVolume
+@onready var music_volume: HSlider = $TabContainer/Music/MusicVolume
+@onready var sfx_volume: HSlider = $TabContainer/Music/SFXVolume
 
-var volume:int = AudioServer.get_bus_volume_db(0)
-# Called when the node enters the scene tree for the first time.
+var master_bus_index
+var sfx_bus_index
+var music_bus_index
+
+var volume
+
+# Called 
 func _ready() -> void:
-	audio_scroll.value = volume
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
+	master_bus_index = AudioServer.get_bus_index("Master")
+	music_bus_index = AudioServer.get_bus_index("Music")
+	sfx_bus_index = AudioServer.get_bus_index("SFX")
+	
+	master_volume.value = db_to_linear(AudioServer.get_bus_volume_db(master_bus_index))
+	music_volume.value = db_to_linear(AudioServer.get_bus_volume_db(music_bus_index))
+	sfx_volume.value = db_to_linear(AudioServer.get_bus_volume_db(sfx_bus_index))
+	
+	visible = false
+	$ColorRect.material.set_shader_parameter("glass_intensity",0.0)
+	$TabContainer/Video/GlassIntensity.value = $ColorRect.material.get_shader_parameter('glass_intensity')
 
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
-
-
-
-func _on_audio_scroll_value_changed(value: float) -> void:
-	volume = value
-	AudioServer.set_bus_volume_db(0,volume-80)
-
+	visible = false
 
 func _on_resolution_item_selected(index: int) -> void:
 	match  index:
@@ -40,9 +44,24 @@ func _on_window_type_item_selected(index: int) -> void:
 		1:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
-
 func _on_mutebtn_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		AudioServer.set_bus_volume_db(0,-80)
+		volume = master_volume.value
+		master_volume.value = 0
 	else:
-		AudioServer.set_bus_volume_db(0,volume)
+		if master_volume.value == 0:
+			master_volume.value = volume
+
+
+func _on_master_volume_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(master_bus_index,linear_to_db(value))
+
+func _on_music_volume_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(music_bus_index,linear_to_db(value))
+
+func _on_sfx_volume_value_changed(value: float) -> void:
+	AudioServer.set_bus_volume_db(sfx_bus_index,linear_to_db(value))
+
+
+func _on_glass_intensity_value_changed(value: float) -> void:
+	$ColorRect.material.set_shader_parameter("glass_intensity",value)

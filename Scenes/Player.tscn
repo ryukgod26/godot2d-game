@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://b5ub8u7skgn7k"]
+[gd_scene load_steps=113 format=3 uid="uid://b5ub8u7skgn7k"]
 
 [ext_resource type="Script" uid="uid://bdu6g88fsw0gt" path="res://Scripts/player.gd" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://cky5bqcmqxedn" path="res://assests/sprites/knight.png" id="1_xhfnw"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c3lc7gx7gr6hc" path="res://assests/Player_Knight/DEFEND.png" id="7_yoq75"]
 [ext_resource type="Texture2D" uid="uid://bkw11exombtyy" path="res://assests/Player_Knight/DEATH.png" id="9_yoq75"]
 [ext_resource type="Texture2D" uid="uid://cpgvvsrmhsclr" path="res://assests/Player_Knight/JUMP.png" id="10_ksbbd"]
+[ext_resource type="PackedScene" uid="uid://c01hnibhsm6ph" path="res://Scenes/ui/ui.tscn" id="12_glx4g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kne1u"]
 atlas = ExtResource("1_xhfnw")
@@ -561,7 +562,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_arntx")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack1",
 "speed": 6.0
 }, {
@@ -581,7 +582,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5v66d")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack2",
 "speed": 5.0
 }, {
@@ -604,7 +605,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u7x0b")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack3",
 "speed": 6.0
 }, {
@@ -767,31 +768,73 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d21ai"]
 radius = 9.0
-height = 38.0
+height = 34.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glx4g"]
+size = Vector2(25.5, 27)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_kpjcp")
 
 [node name="AnimatedSprite2D12" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(1, -12)
 sprite_frames = SubResource("SpriteFrames_kdubu")
 animation = &"Hit"
 autoplay = "Idle"
 
-[node name="Timer" type="Timer" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Player"]]
 sprite_frames = SubResource("SpriteFrames_kyqiw")
-animation = &"Hit"
-autoplay = "Idle"
+animation = &"Attack1"
+frame = 5
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 2)
+position = Vector2(1, 4)
 shape = SubResource("CapsuleShape2D_d21ai")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="DeathTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+
+[node name="InvcTimer" type="Timer" parent="Timers"]
+
+[node name="AttackTimer" type="Timer" parent="Timers"]
+
+[node name="UI" parent="." instance=ExtResource("12_glx4g")]
+
+[node name="Healthlbl" parent="UI/Health" index="0"]
+offset_left = -141.0
+offset_top = -79.0
+offset_right = -11.0
+offset_bottom = -63.0
+
+[node name="Coinslbl" parent="UI/Coins" index="0"]
+offset_left = 98.0
+offset_top = -80.0
+offset_right = 153.99976
+offset_bottom = -57.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="AttackCollision" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(19, 7.5)
+shape = SubResource("RectangleShape2D_glx4g")
+
 [connection signal="animation_finished" from="AnimatedSprite2D12" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timers/DeathTimer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+
+[editable path="UI"]

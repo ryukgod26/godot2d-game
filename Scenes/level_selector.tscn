@@ -55,20 +55,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "LEVEL 3"
 
-[node name="level4" type="Button" parent="VBoxContainer"]
+[node name="Winter Level" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "LEVEL 4"
-
-[node name="level5" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "LEVEL 5"
-
-[node name="level6" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "LEVEL 6"
+text = "Winter Level"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -87,4 +77,4 @@ text = "SELECT LEVEL"
 [connection signal="pressed" from="VBoxContainer/level" to="." method="_on_level_pressed"]
 [connection signal="pressed" from="VBoxContainer/level2" to="." method="_on_level_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/level3" to="." method="_on_level_3_pressed"]
-[connection signal="pressed" from="VBoxContainer/level4" to="." method="_on_level_4_pressed"]
+[connection signal="pressed" from="VBoxContainer/Winter Level" to="." method="_on_winter_level_pressed"]

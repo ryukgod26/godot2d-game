@@ -1,36 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlembdjg74smj"]
+[gd_scene load_steps=4 format=3 uid="uid://dlembdjg74smj"]
 
 [ext_resource type="Script" uid="uid://bhk8xpfvnskua" path="res://Scripts/options.gd" id="1_4geyq"]
+[ext_resource type="Shader" uid="uid://cnx0dnl4uater" path="res://Shaders/settings.gdshader" id="2_i44u3"]
 
-[node name="Settings" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhmql"]
+shader = ExtResource("2_i44u3")
+shader_parameter/glass_intensity = 1.38000006555
+
+[node name="Settings" type="CanvasLayer"]
 script = ExtResource("1_4geyq")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_lhmql")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="Audio_Scroll" type="HScrollBar" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+clip_tabs = false
+
+[node name="Video" type="VBoxContainer" parent="TabContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
+metadata/_tab_index = 0
 
-[node name="Mutebtn" type="CheckBox" parent="VBoxContainer"]
-layout_mode = 2
-text = "MUTE"
-
-[node name="Resolutionlbl" type="Label" parent="VBoxContainer"]
+[node name="Resolutionlbl" type="Label" parent="TabContainer/Video"]
 layout_mode = 2
 text = "Resolution"
+horizontal_alignment = 1
 
-[node name="Resolution" type="OptionButton" parent="VBoxContainer"]
+[node name="Resolution" type="OptionButton" parent="TabContainer/Video"]
 layout_mode = 2
 selected = 0
 item_count = 3
@@ -41,7 +49,12 @@ popup/item_1/id = 1
 popup/item_2/text = "1920x1080"
 popup/item_2/id = 2
 
-[node name="window_type" type="OptionButton" parent="VBoxContainer"]
+[node name="WindowTypelbl" type="Label" parent="TabContainer/Video"]
+layout_mode = 2
+text = "Window Type"
+horizontal_alignment = 1
+
+[node name="WindowType" type="OptionButton" parent="TabContainer/Video"]
 layout_mode = 2
 selected = 0
 item_count = 2
@@ -50,12 +63,60 @@ popup/item_0/id = 0
 popup/item_1/text = "Full Screen"
 popup/item_1/id = 1
 
-[node name="Back" type="Button" parent="VBoxContainer"]
+[node name="GlassIntensitylbl" type="Label" parent="TabContainer/Video"]
 layout_mode = 2
-text = "BACK"
+text = "Glass Intensity
+"
+horizontal_alignment = 1
 
-[connection signal="value_changed" from="VBoxContainer/Audio_Scroll" to="." method="_on_audio_scroll_value_changed"]
-[connection signal="toggled" from="VBoxContainer/Mutebtn" to="." method="_on_mutebtn_toggled"]
-[connection signal="item_selected" from="VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/window_type" to="." method="_on_window_type_item_selected"]
-[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
+[node name="GlassIntensity" type="HSlider" parent="TabContainer/Video"]
+layout_mode = 2
+max_value = 5.0
+step = 0.2
+
+[node name="Music" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MasterVolumelbl" type="Label" parent="TabContainer/Music"]
+layout_mode = 2
+text = "MASTER VOLUME"
+
+[node name="MasterVolume" type="HSlider" parent="TabContainer/Music"]
+layout_mode = 2
+
+[node name="MusicVolumelbl" type="Label" parent="TabContainer/Music"]
+layout_mode = 2
+
+[node name="MusicVolume" type="HSlider" parent="TabContainer/Music"]
+layout_mode = 2
+
+[node name="SFXVolumelbl" type="Label" parent="TabContainer/Music"]
+layout_mode = 2
+
+[node name="SFXVolume" type="HSlider" parent="TabContainer/Music"]
+layout_mode = 2
+
+[node name="Mutebtn" type="CheckBox" parent="TabContainer/Music"]
+layout_mode = 2
+text = "MUTE"
+
+[node name="Back" type="Button" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+
+[connection signal="item_selected" from="TabContainer/Video/Resolution" to="." method="_on_resolution_item_selected"]
+[connection signal="item_selected" from="TabContainer/Video/WindowType" to="." method="_on_window_type_item_selected"]
+[connection signal="value_changed" from="TabContainer/Video/GlassIntensity" to="." method="_on_glass_intensity_value_changed"]
+[connection signal="value_changed" from="TabContainer/Music/MasterVolume" to="." method="_on_master_volume_value_changed"]
+[connection signal="value_changed" from="TabContainer/Music/MusicVolume" to="." method="_on_music_volume_value_changed"]
+[connection signal="value_changed" from="TabContainer/Music/SFXVolume" to="." method="_on_sfx_volume_value_changed"]
+[connection signal="toggled" from="TabContainer/Music/Mutebtn" to="." method="_on_mutebtn_toggled"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

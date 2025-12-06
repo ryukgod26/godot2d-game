@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://c01hnibhsm6ph"]
+
+[ext_resource type="Script" uid="uid://h0u7koesaxt3" path="res://Scripts/ui/ui.gd" id="1_5ldll"]
+[ext_resource type="FontFile" uid="uid://dbpnahwfrrrf7" path="res://assests/fonts/PixelOperator8.ttf" id="2_oak0x"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5ldll")
+
+[node name="Health" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Healthlbl" type="Label" parent="Health"]
+layout_mode = 1
+offset_right = 130.0
+offset_bottom = 16.0
+scale = Vector2(0.567681, 0.490531)
+theme_override_colors/font_color = Color(0.607843, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_oak0x")
+theme_override_font_sizes/font_size = 16
+text = "Health:100"
+
+[node name="Coins" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Coinslbl" type="Label" parent="Coins"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -55.999756
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("2_oak0x")
+theme_override_font_sizes/font_size = 8
+text = "Coins:0"

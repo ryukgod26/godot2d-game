@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://rjlw2xmjxhfb"]
+
+[ext_resource type="Script" uid="uid://pkgdcbshm0q4" path="res://Scripts/Enemy/enemy.gd" id="1_mw074"]
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_mw074")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="Timers"]
+wait_time = 3.0
+
+[node name="InvcTimer" type="Timer" parent="Timers"]
+
+[connection signal="timeout" from="Timers/AttackTimer" to="." method="_on_attack_timer_timeout"]

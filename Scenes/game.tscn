@@ -472,33 +472,6 @@ shape = SubResource("WorldBoundaryShape2D_i6g32")
 position = Vector2(24, -32)
 scale = Vector2(1.05839, 0.953967)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(-5, 0)
-zoom = Vector2(4, 4)
-limit_bottom = 120
-limit_smoothed = true
-position_smoothing_enabled = true
-
-[node name="health" type="Label" parent="Player"]
-offset_left = -133.221
-offset_top = -83.8603
-offset_right = -3.2215
-offset_bottom = -67.8603
-scale = Vector2(0.567681, 0.490531)
-theme_override_colors/font_color = Color(0.607843, 0, 0, 1)
-theme_override_fonts/font = ExtResource("8_h4fw4")
-theme_override_font_sizes/font_size = 16
-text = "Health:100"
-
-[node name="Coins" type="Label" parent="Player"]
-offset_left = 78.4212
-offset_top = -83.8603
-offset_right = 134.421
-offset_bottom = -60.8603
-theme_override_fonts/font = ExtResource("8_h4fw4")
-theme_override_font_sizes/font_size = 8
-text = "Coins:0"
-
 [node name="PauseMenu" parent="Player" instance=ExtResource("6_o5yvi")]
 visible = false
 
@@ -593,5 +566,4 @@ sprite_frames = SubResource("SpriteFrames_ewbju")
 autoplay = "default"
 frame_progress = 0.348124
 
-[connection signal="resumed" from="Player/PauseMenu" to="GameManager" method="_on_pause_menu_resumed"]
 [connection signal="body_entered" from="level_end" to="GameManager" method="_on_level_end_body_entered"]

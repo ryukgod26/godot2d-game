@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=4 uid="uid://b0utn816xkjt2"]
+[gd_scene load_steps=10 format=4 uid="uid://b0utn816xkjt2"]
 
 [ext_resource type="Texture2D" uid="uid://ds8bu0lkx2qr" path="res://assests/sprites/world_tileset.png" id="1_5eaas"]
 [ext_resource type="Script" uid="uid://p1msa1pjsqq5" path="res://Scripts/level_4.gd" id="1_dvrgg"]
 [ext_resource type="PackedScene" uid="uid://b5ub8u7skgn7k" path="res://Scenes/Player.tscn" id="2_kdkq3"]
-[ext_resource type="FontFile" uid="uid://dbpnahwfrrrf7" path="res://assests/fonts/PixelOperator8.ttf" id="3_f6i20"]
 [ext_resource type="PackedScene" uid="uid://co4rf4t1ra8aw" path="res://Scenes/blue_platform.tscn" id="3_kdkq3"]
 [ext_resource type="PackedScene" uid="uid://bdya2npmsgag" path="res://Scenes/pause_menu.tscn" id="5_wk15n"]
 
@@ -297,33 +296,8 @@ tile_set = SubResource("TileSet_f6i20")
 
 [node name="Player" parent="." instance=ExtResource("2_kdkq3")]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(4, 4)
-
-[node name="health" type="Label" parent="Player"]
-offset_left = -133.221
-offset_top = -83.8603
-offset_right = -3.2215
-offset_bottom = -67.8603
-scale = Vector2(0.567681, 0.490531)
-theme_override_colors/font_color = Color(0.607843, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_f6i20")
-theme_override_font_sizes/font_size = 16
-text = "Health:100"
-
-[node name="Coins" type="Label" parent="Player"]
-offset_left = 78.4212
-offset_top = -83.8603
-offset_right = 134.421
-offset_bottom = -60.8603
-theme_override_fonts/font = ExtResource("3_f6i20")
-theme_override_font_sizes/font_size = 8
-text = "Coins:0"
-
 [node name="PauseMenu" parent="Player" instance=ExtResource("5_wk15n")]
 visible = false
 
 [node name="AnimatableBody2D" parent="." instance=ExtResource("3_kdkq3")]
 position = Vector2(160, -8)
-
-[connection signal="resumed" from="Player/PauseMenu" to="." method="_on_pause_menu_resumed"]
